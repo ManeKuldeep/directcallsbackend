@@ -26,7 +26,7 @@ const TOKEN_PATH = 'token.json';
 function start(){
     // Load client secrets from a local file.
     fs.readFile('credentials.json', (err, content) => {
-      if (err) return console.log(new Date(),'Error loading client secret file:', err);
+      if (err) return console.log(new Date().toString(),'Error loading client secret file:', err);
       // Authorize a client with credentials, then call the Google Sheets API.
       authorize(JSON.parse(content), listMajors);
     });
@@ -62,7 +62,7 @@ function getNewToken(oAuth2Client, callback) {
     access_type: 'offline',
     scope: SCOPES,
   });
-  console.log(new Date(),'Authorize this app by visiting this url:', authUrl);
+  console.log(new Date().toString(),'Authorize this app by visiting this url:', authUrl);
   const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -75,7 +75,7 @@ function getNewToken(oAuth2Client, callback) {
       // Store the token to disk for later program executions
       fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
         if (err) return console.error(err);
-        console.log(new Date(),'Token stored to', TOKEN_PATH);
+        console.log(new Date().toString(),'Token stored to', TOKEN_PATH);
       });
       callback(oAuth2Client);
     });
@@ -88,14 +88,14 @@ function getNewToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
 function listMajors(auth) {
-    console.log(new Date(),"started");
+    console.log(new Date().toString(),"started");
     
   const sheets = google.sheets({version: 'v4', auth});
   sheets.spreadsheets.values.get({
     spreadsheetId: '1vs2o4E9ptn970Qttt4rTevyKLktSJIiBxX_nGuwKmE0',
     range: 'Calculation!A:E',
   }, (err, res) => {
-    if (err) return console.log(new Date(),'The API returned an error: ' + err);
+    if (err) return console.log(new Date().toString(),'The API returned an error: ' + err);
     const rows = res.data.values;
     if (rows.length) {
         for(let i=1; i<4; i++){
@@ -109,10 +109,10 @@ function listMajors(auth) {
             set[rows[7][0]]=rows[7][i];
             db.ref(`/OP_DATA/${rows[1][i]}`).update(set)
         }
-        console.log(new Date(),"Firbase write done.");
+        console.log(new Date().toString(),"Firbase write done.");
         
     } else {
-      console.log(new Date(),'No data found.');
+      console.log(new Date().toString(),'No data found.');
     }
   });
 }
