@@ -85,6 +85,7 @@ function getNewToken(oAuth2Client, callback) {
 /**
  * Prints the names and majors of students in a sample spreadsheet:
  * @see https://docs.google.com/spreadsheets/d/1vs2o4E9ptn970Qttt4rTevyKLktSJIiBxX_nGuwKmE0/edit
+ * @see https://docs.google.com/spreadsheets/d/1ip2u3_t4pjUHcX7Uvcp8xNrSjD7-2zGP9ckSaZN2jMA/edit?ts=5def1bc6
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
 function listMajors(auth) {
@@ -92,7 +93,7 @@ function listMajors(auth) {
     
   const sheets = google.sheets({version: 'v4', auth});
   sheets.spreadsheets.values.get({
-    spreadsheetId: '1vs2o4E9ptn970Qttt4rTevyKLktSJIiBxX_nGuwKmE0',
+    spreadsheetId: '1ip2u3_t4pjUHcX7Uvcp8xNrSjD7-2zGP9ckSaZN2jMA',
     range: 'Calculation!A:E',
   }, (err, res) => {
     if (err) return console.log(new Date().toString(),'The API returned an error: ' + err);
